@@ -1,0 +1,60 @@
+<?php
+include_once 'vendor/autoload.php';
+/**
+ * Implements hook_ctools_plugin_directory().
+ *
+ * It simply tells panels where to find the .inc files that define various
+ * args, contexts, content_types.
+ */
+function oc_krimi_siden_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && !empty($plugin)) {
+    return "plugins/$plugin";
+  }
+}
+ /*
+  * Register a custom theme template
+  */
+ function oc_krimi_siden_theme($existing, $type, $theme, $path)
+{
+
+    return array(
+      'krimi_linked_block' => array(
+        'variables' => array(),
+        'template' => 'krimi_linked_block',
+        'path' => drupal_get_path('module', 'oc_krimi_siden') . '/templates'
+      ),
+    );
+}
+/*
+ * Api methods
+ */
+function oc_krimi_siden_get_by_isbn()
+{
+    //$graph = new EasyRdf_Graph("http://lod.fynbib.dk:3030/krim/");
+    //$graph->load();
+    //$test = $graph->resourcesMatching('schema:givenName');
+    return;
+    EasyRdf_Namespace::set('schema', 'http://schema.org/');
+    EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+    EasyRdf_Namespace::set('srt', 'http://persuratan-semweb.dev/ontologies/surat.owl#');
+    $sparql = new EasyRdf_Sparql_Client('http://lod.fynbib.dk:3030/krim/sparql');
+    
+    $query =
+    "CONSTRUCT WHERE {".
+        "?isbn schema:isbn \"9788740013641\" .".
+        "?isbn ?p ?o}".
+     " LIMIT 10";
+    $result = $sparql->query($query);
+    
+    foreach ($result->revIndex as $row) {
+        echo "<li>".$row->genre. " ". $row->o."</li>\n";
+    }
+}
+function oc_krimi_siden_get_by_author()
+{
+    
+}
+function oc_krimi_siden_get_by_identifier()
+{
+    
+}

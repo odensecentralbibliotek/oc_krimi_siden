@@ -1,0 +1,4 @@
+name = oc krimi side linked data
+description = gør linkede data browseable.
+core = 7.x
+package = oc
