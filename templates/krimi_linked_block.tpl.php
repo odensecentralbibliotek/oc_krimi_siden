@@ -22,7 +22,6 @@
 }
 .krimi-cover-image img
 {
-    height: 100%;
     width:150px;
 }
 </style>
