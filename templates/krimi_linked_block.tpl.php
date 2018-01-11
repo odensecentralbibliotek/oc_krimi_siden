@@ -24,6 +24,10 @@
 {
     width:150px;
 }
+.oc-krimi-menu
+{
+    margin: 10px;
+}
 </style>
 <div class="krimi-wrapper">
     <div id="oc_krimi_menu"></div>
@@ -34,21 +38,21 @@
 
 <script type="text/template" id="krimi-main-menu">
   <div class="view">
-  <div id="oc_krimi_top_1" class="Linked_data_button"><div><img  src="<?php echo "/".drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" /></div><div><a id="krimi_similar_books_button">Forfatter</a></div></div>
-    <div id="oc_krimi_top_2" class="Linked_data_button"><div><img  src="<?php echo "/".drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" /></div><div >Værk</div></div>
-    <div id="oc_krimi_top_3" class="Linked_data_button"><div><img  src="<?php echo "/".drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" /></div><div ><a id="krimi_genre_view_button">Genre</a></div></div>
-    <div id="oc_krimi_top_4" class="Linked_data_button"><div><img  src="<?php echo "/".drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" /></div><div>Sted</div></div>
-    <div id="oc_krimi_top_4" class="Linked_data_button"><div><img  src="<?php echo "/".drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" /></div><div>Hovedeperson</div></div>
+  <a id="krimi_similar_books_button"><div id="oc_krimi_top_1" class="Linked_data_button"><div><img  src="<?php echo "/".drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" /></div><div>Lignende Forfattere</div></div></a>
+   <a id="krimi_genre_view_button"> <div id="oc_krimi_top_3" class="Linked_data_button"><div><img  src="<?php echo "/".drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" /></div><div >lignende Genre</div></div></a>
+    <div id="oc_krimi_top_4" class="Linked_data_button"><div><img  src="<?php echo "/".drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" /></div><div>lignende Steder?</div></div>
+    <div id="oc_krimi_top_4" class="Linked_data_button"><div><img  src="<?php echo "/".drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" /></div><div>Samme Hovedeperson?</div></div>
    </div>
 </script>
 <!--- view: Genre selection --->
 <script type="text/template" id="krimi-genre-similar-books">
   <div class="krimi_similar_view">
-    <div> 
-        <a>frem</a>
-        <a>tilbage</a>
+   <h2>Bøger i Genre</h2>
+    <div class="oc-krimi-menu"> 
+        <a class="krimi-back-btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
         <a id="krimi_goto_menu_btn">menu</a>
     </div>
+   
     <% _.each(similar.models, function(similarItem) { %>
       <div class="krimi-cover-image">
         <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
@@ -56,15 +60,16 @@
     <% }); %>
   </div>
 </script>
+<!--- book genres -->
 <script type="text/template" id="krimi-books-genre">
 <div> 
-<a>frem</a>
-<a>tilbage</a>
-<a id="krimi_goto_menu_btn">menu</a>
+<h2>Lignende genrer</h2>
+<a id="krimi_goto_menu_btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
 </div>
 <div>
+
  <% _.each(genres.models, function(genre) { %>
- <a id="<%= genre.get('label').value %>" class="krimi-follow-similar-genre"><%= genre.get('label').value %></a><br/>
+ <a id="<%= genre.get('identifier').value %>" class="krimi-follow-similar-genre"><img src="<%= genre.get('genre_billede').value %>" /><%= genre.get('label').value %></a><br/>
 <% }); %>
 </div>
 </script>
@@ -72,9 +77,8 @@
 <!--- view: books by author --->
 <script type="text/template" id="krimi-similar-books">
   <div class="krimi_similar_view">
-    <div> 
-        <a>frem</a>
-        <a>tilbage</a>
+    <div class="oc-krimi-menu"> 
+        <a class="krimi-back-btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
         <a id="krimi_goto_menu_btn">menu</a>
     </div>
     <% _.each(similar.models, function(similarItem) { %>
@@ -95,14 +99,19 @@
     <div><a href="">find lignende med hovedeperson</a></div>
     <div><a href="">Lån Bogen</a></div>
 </script>
-<!--- Generial templates --->
-<script type="text/template" id="krimi-wrapper-header">
-  <div class="krimi-menu-header">
-    <a>frem</a>
-    <a>tilbage</a>
-    <a>menu</a>
-  </div>
+<!-- View similar authors in genre--->
+<script type="text/template" id="krimi-authors-in-genre">
+<h2>Forfaterer som skriver i samme genre</h2>
+<div class="oc-krimi-menu"> 
+<a id="krimi_goto_menu_btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
+</div>
+<div>
+ <% _.each(authors.models, function(author) { %>
+ <a id="<%= author.get('author').value %>" class="krimi-follow-author-in-genre"><img class="krimi-author-profile-image" src="default.jpg" /><%= author.get('author').value %></a><br/>
+<% }); %>
+</div>
 </script>
+<!---end -->
 <div id="krimi-dialog" title="Linked Data handlings boks" style="display:none;">
   <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
 </div>

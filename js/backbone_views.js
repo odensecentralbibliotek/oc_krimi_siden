@@ -1,90 +1,137 @@
+/*
+ * Setup the backbone js to handle the browsing of linked data
+ */
 jQuery( document ).ready(function() {
-// Define the model
-krimi_app.rdf_data = Backbone.Model.extend({});
-
-// Books by author rdf
-krimi_app.author_rdf = Backbone.Collection.extend(
-    {
-    
-        // Url to request when fetch() is called
-        url:  krimi_app.app_data.get("service_url") +  krimi_app.app_data.get("get_books_by_author_sparql"),
-        parse: function(response) {
-            var test = response["@graph"];
-            for (var i = 0, length = test.length; i < length; i++) {
-                this.push(test[i]);
-            }
-            return this.models;
+     /*
+     * View authors in viewd book genres
+     */
+    krimi_app.show_authors_in_viewd_book_genre = Backbone.View.extend({
+        className: 'krimi-author-in-viewd-book-genres-items-view',
+        el: '#oc_krimi_app',
+         initialize: function(){
+            
+          // create a collection
+          //this.render();
         },
-        // Overwrite the sync method to pass over the Same Origin Policy
-        sync: function(method, model, options) {
-            var that = this;
-                var params = _.extend({
-                    type: 'GET',
-                    dataType: 'json',
-                    url: that.url,
-                    processData: false
-                }, options);
-            return jQuery.ajax(params);
+        events: {
+        'click #krimi_browser_author': 'display_genre_author_book_items',
+        'click .krimi-follow-author-in-genre': 'Get_books_by_author',
         },
-        fetch_rdf: function( options, author ){
-            this.reset();
-            var _url = this.url;
-
-            if( author ){
-                this.url = this.url.replace("%#%",author);
-            }
-            this.fetch( options );
-
-            this.url = _url;
+        render: function(){
+          debugger;
+          this.template = _.template(jQuery("#krimi-authors-in-genre").html());
+          this.$el.html(this.template({"authors": krimi_app.books_in_viewed_book_genre_rdf}));
         },
-        fetch_rdf_by_genre: function(options, genre)
-        {
-            this.reset();
-            var _url = this.url;
-            this.url = krimi_app.app_data.get("service_url") +  krimi_app.app_data.get("get_books_by_genre_sparql");
-            if( genre ){
-                this.url = this.url.replace("%#%",genre);
-            }
-            this.fetch( options );
-
-            this.url = _url;
-        }
-    });
-    // Book genres
-    krimi_app.book_genres = Backbone.Collection.extend(
-    {
-    
-        // Url to request when fetch() is called
-        url:  krimi_app.app_data.get("service_url") +  krimi_app.app_data.get("get_book_genres_sparql"),
-        parse: function(response) {
+        goto_menu: function(){
+            krimi_app.MainView.render();  
+        },
+        Get_books_by_author:function(ev){
             debugger;
-            var test =  response["results"]["bindings"];
-            for (var i = 0, length = test.length; i < length; i++) {
-                this.push(test[i]);
-            }
-            return this.models;
+            var id = jQuery(ev.currentTarget).attr('id');
+                // Fetch the collection and call render() method
+                krimi_app.books_by_author_rdf.fetch_rdf({
+                  success: function () {
+                      krimi_app.SimilarBooks.render();
+                  }
+                },id);
+            },
+    });
+    
+     /*
+     * View book genres
+     */
+    krimi_app.show_genre_similar_items = Backbone.View.extend({
+        className: 'krimi-genre-similar-items-view',
+        el: '#oc_krimi_app',
+         initialize: function(){
+            
+          // create a collection
+          //this.render();
         },
-        // Overwrite the sync method to pass over the Same Origin Policy
-        sync: function(method, model, options) {
-            var that = this;
-                var params = _.extend({
-                    type: 'GET',
-                    dataType: 'json',
-                    url: that.url,
-                    processData: false
-                }, options);
-            return jQuery.ajax(params);
+        events: {
+        'click #krimi_browser_genre': 'display_similar_genre_items',
         },
-        fetch_rdf: function( options ){
-            this.reset();
-            var _url = this.url;
-
-            this.fetch( options );
-
-            this.url = _url;
+        render: function(){
+          debugger;
+          this.template = _.template(jQuery("#krimi-genre-similar-books").html());
+          this.$el.html(this.template({"similar": krimi_app.books_by_author_rdf}));
+        },
+        goto_menu: function(){
+            krimi_app.MainView.render();  
+        },
+        display_similar_genre_items: function(e){
+            //Render the similar items by genre
         }
     });
     
+    /*
+     * View books by genres
+     */
+    krimi_app.show_genres = Backbone.View.extend({
+        className: 'krimi-genre-view',
+        el: '#oc_krimi_app',
+         initialize: function(){
+            
+          // create a collection
+          //this.render();
+        },
+        events: {
+        'click .krimi-follow-similar-genre': 'display_genre_item',
+        'click #krimi_goto_menu_btn': 'goto_menu',
+        },
+        render: function(){
+            
+          this.template = _.template(jQuery("#krimi-books-genre").html());
+          this.$el.html(this.template({"genres": krimi_app.book_genres}));
+        },
+        goto_menu: function(){
+            krimi_app.MainView.render();  
+        },
+        display_genre_item: function(e){
+            //Render the similar items by genre
+             // Fetch the collection and call render() method
+             debugger;
+             /*
+              * & in url values needs to be encoded , or it breaks request.
+              */
+         var genre_name = jQuery(e.currentTarget).attr("id").replace('&','%26');
+         krimi_app.books_by_author_rdf.fetch_rdf_by_genre({
+            success: function () {
+                krimi_app.show_genre_similar_items.render();
+            }
+          },genre_name);
+        }
+    });
+    
+    /*
+     * View similar items
+     */
+    krimi_app.SimilarBooks = Backbone.View.extend({
+        className: 'krimi-similar-view',
+        el: '#oc_krimi_app',
+         initialize: function(){
+            
+          // create a collection
+          //this.render();
+        },
+        events: {
+        'click #krimi_goto_menu_btn': 'goto_menu',
+        'click .similar-item': 'display_item'
+        },
+        render: function(){
+          this.template = _.template(jQuery("#krimi-similar-books").html());
+          this.$el.html(this.template({"similar": krimi_app.books_by_author_rdf}));
+        },
+        goto_menu: function(){
+            krimi_app.MainView.render();  
+        },
+        display_item: function(e){
+            var target = jQuery(e.currentTarget);
+            var found = krimi_app.books_by_author_rdf.findWhere({'identifier': target.attr('id')});
+            var tmpl = _.template(jQuery('#krimi-display-similar-book').html());
+            var html = tmpl({'entity': found});
+            jQuery("#krimi-dialog").html(html);
+            jQuery("#krimi-dialog").dialog();
+        }
+    });
 });
-
-

@@ -26,6 +26,7 @@ function oc_krimi_siden_linked_data_content_type_render($subtype, $conf, $panel_
   {
       //add entity information to bootstrap javascript.
       $data = array();
+      $data["faust"] = isset($entity->localId) ? $entity->localId : null;
       $data["author"] = isset($entity->creators) ? $entity->creators[0] : null;
       $data["isbn"] = isset($entity->record["dc:identifier"]["dkdcplus:ISBN"][0]) ? $entity->record["dc:identifier"]["dkdcplus:ISBN"][0] : 0 ;
       $data["subjects"] = $entity->subjects;
@@ -37,10 +38,10 @@ function oc_krimi_siden_linked_data_content_type_render($subtype, $conf, $panel_
       drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js', 'external');
       
       drupal_add_js(drupal_get_path('module', 'oc_krimi_siden') .'/js/backbone_models.js');
+      drupal_add_js(drupal_get_path('module', 'oc_krimi_siden') .'/js/backbone_collections.js');
       drupal_add_js(drupal_get_path('module', 'oc_krimi_siden') .'/js/backbone_views.js');
       drupal_add_js(drupal_get_path('module', 'oc_krimi_siden') .'/js/oc_krimi_siden.js');
       
-     
       $block->content = theme("krimi_linked_block");
   }
   
