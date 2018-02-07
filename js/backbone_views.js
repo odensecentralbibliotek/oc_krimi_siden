@@ -18,7 +18,6 @@ jQuery( document ).ready(function() {
         'click .krimi-follow-author-in-genre': 'Get_books_by_author',
         },
         render: function(){
-          debugger;
           this.template = _.template(jQuery("#krimi-authors-in-genre").html());
           this.$el.html(this.template({"authors": krimi_app.books_in_viewed_book_genre_rdf}));
         },
@@ -26,7 +25,6 @@ jQuery( document ).ready(function() {
             krimi_app.MainView.render();  
         },
         Get_books_by_author:function(ev){
-            debugger;
             var id = jQuery(ev.currentTarget).attr('id');
                 // Fetch the collection and call render() method
                 krimi_app.books_by_author_rdf.fetch_rdf({
@@ -52,7 +50,6 @@ jQuery( document ).ready(function() {
         'click #krimi_browser_genre': 'display_similar_genre_items',
         },
         render: function(){
-          debugger;
           this.template = _.template(jQuery("#krimi-genre-similar-books").html());
           this.$el.html(this.template({"similar": krimi_app.books_by_author_rdf}));
         },
@@ -90,7 +87,6 @@ jQuery( document ).ready(function() {
         display_genre_item: function(e){
             //Render the similar items by genre
              // Fetch the collection and call render() method
-             debugger;
              /*
               * & in url values needs to be encoded , or it breaks request.
               */
