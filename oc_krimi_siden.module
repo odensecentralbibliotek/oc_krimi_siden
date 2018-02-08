@@ -1,5 +1,42 @@
 <?php
-include_once 'vendor/autoload.php';
+//include_once 'vendor/autoload.php';
+
+function oc_krimi_siden_menu() {
+  $items['krimi/get-authors-in-genre/%'] = array(
+    'page callback' => 'oc_krimi_siden_get_similar_authors_by_genre',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+   $items['krimi/get-author-genres/%'] = array(
+    'page callback' => 'oc_krimi_siden_get_author_genres',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+      $items['krimi/get-books-by-genre/%'] = array(
+
+    'page callback' => 'oc_krimi_siden_get_books_by_genre',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  $items['krimi/get-books-by-author/%'] = array(
+
+    'page callback' => 'oc_krimi_siden_get_books_by_author',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  $items['krimi/get-books-by-main-char/%'] = array(
+    'page callback' => 'oc_krimi_siden_get_books_by_main_char',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  
+  return $items;
+}
 /**
  * Implements hook_ctools_plugin_directory().
  *
@@ -30,31 +67,55 @@ function oc_krimi_siden_ctools_plugin_directory($module, $plugin) {
  */
 function oc_krimi_siden_get_by_isbn()
 {
-    //$graph = new EasyRdf_Graph("http://lod.fynbib.dk:3030/krim/");
-    //$graph->load();
-    //$test = $graph->resourcesMatching('schema:givenName');
-    return;
-    EasyRdf_Namespace::set('schema', 'http://schema.org/');
-    EasyRdf_Namespace::set('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-    EasyRdf_Namespace::set('srt', 'http://persuratan-semweb.dev/ontologies/surat.owl#');
-    $sparql = new EasyRdf_Sparql_Client('http://lod.fynbib.dk:3030/krim/sparql');
-    
-    $query =
-    "CONSTRUCT WHERE {".
-        "?isbn schema:isbn \"9788740013641\" .".
-        "?isbn ?p ?o}".
-     " LIMIT 10";
-    $result = $sparql->query($query);
-    
-    foreach ($result->revIndex as $row) {
-        echo "<li>".$row->genre. " ". $row->o."</li>\n";
-    }
 }
-function oc_krimi_siden_get_by_author()
+function oc_krimi_siden_get_books_by_location()
 {
     
 }
-function oc_krimi_siden_get_by_identifier()
+function oc_krimi_siden_get_books_by_main_char($main_char)
 {
+    $get_books_by_main_char_sparql = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?mainchar schema:mainCharacter "%#%" . ?mainchar ?o ?p }';
+    $get_books_by_main_char_sparql = str_replace('%#%', $main_char, $get_books_by_main_char_sparql);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_books_by_main_char_sparql) . "&output=json";
+    $data = file_get_contents($url);
+    echo $data;
+    drupal_exit();
+}
+function oc_krimi_siden_get_books_by_genre($genre)
+{
+    $genre = "http://krimisiden.dk/content.php?page=" . rawurldecode($_GET["page"]);
+    $get_books_by_genre_sparql = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?genre schema:genre <%#%> .?genre ?o ?p}';
+    $get_books_by_genre_sparql = str_replace('%#%', $genre, $get_books_by_genre_sparql);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_books_by_genre_sparql) . "&output=json";
+    $data = file_get_contents($url);
+    echo $data;
+    drupal_exit();
+}
+function oc_krimi_siden_get_books_by_author($author)
+{
+    $get_books_by_author_sparql = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?author schema:author "%#%" . ?author ?o ?p }';
+    $get_books_by_author_sparql = str_replace('%#%', $author, $get_books_by_author_sparql);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_books_by_author_sparql) . "&output=json";
+    $data = file_get_contents($url);
+    echo $data;
+    drupal_exit();
+}
+function oc_krimi_siden_get_author_genres($author)
+{
+    $get_book_genres_sparql = 'PREFIX schema: <http://schema.org/> SELECT distinct ?identifier ?label ?genre_billede WHERE {  ?s schema:author "%#%" .  ?s schema:genre ?identifier .  ?identifier schema:name ?label .  BIND(CONCAT("https://www.odensebib.dk/sites/www.odensebib.dk/files/", ?label, ".jpg") AS ?genre_billede) .}';
+    $get_book_genres_sparql = str_replace('%#%', $author, $get_book_genres_sparql);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_book_genres_sparql) . "&output=json";
+    $data = file_get_contents($url);
+    echo $data;
+    drupal_exit();
     
+}
+function oc_krimi_siden_get_similar_authors_by_genre($faust)
+{
+    $get_authors_in_book_genre_sparql = 'PREFIX schema: <http://schema.org/> select distinct ?author {  ?s schema:productID "faust:%#%" .  ?s schema:genre ?genre .  ?books schema:author ?author .  filter(isLiteral(?author)) }group by ?author order by rand() LIMIT 50';
+    $get_authors_in_book_genre_sparql = str_replace('%#%', $faust, $get_authors_in_book_genre_sparql);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_authors_in_book_genre_sparql) . "&output=json";
+    $data = file_get_contents($url);
+    echo $data;
+    drupal_exit();
 }

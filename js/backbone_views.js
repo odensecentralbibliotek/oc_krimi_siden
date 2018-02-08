@@ -48,6 +48,7 @@ jQuery( document ).ready(function() {
         },
         events: {
         'click #krimi_browser_genre': 'display_similar_genre_items',
+        'click .krimi-genre-back-btn':'go_back',
         },
         render: function(){
           this.template = _.template(jQuery("#krimi-genre-similar-books").html());
@@ -55,6 +56,10 @@ jQuery( document ).ready(function() {
         },
         goto_menu: function(){
             krimi_app.MainView.render();  
+        },
+        go_back: function()
+        {
+            krimi_app.MainView.show_book_genres();
         },
         display_similar_genre_items: function(e){
             //Render the similar items by genre
@@ -112,7 +117,8 @@ jQuery( document ).ready(function() {
         },
         events: {
         'click #krimi_goto_menu_btn': 'goto_menu',
-        'click .similar-item': 'display_item'
+        'click .similar-item': 'display_item',
+        'click .krimi-back-btn': 'krimi_go_back',
         },
         render: function(){
           this.template = _.template(jQuery("#krimi-similar-books").html());
@@ -120,6 +126,9 @@ jQuery( document ).ready(function() {
         },
         goto_menu: function(){
             krimi_app.MainView.render();  
+        },
+        krimi_go_back: function(){
+            krimi_app.MainView.Show_similar_authors_in_genre();
         },
         display_item: function(e){
             var target = jQuery(e.currentTarget);
@@ -130,4 +139,5 @@ jQuery( document ).ready(function() {
             jQuery("#krimi-dialog").dialog();
         }
     });
+
 });

@@ -5,10 +5,11 @@
         display:inline-block;
          width: 24%;
          height: 100%;
+         word-wrap: break-word;
     }
     .krimi-follow-similar-genre
     {
-        width: 30% !important;
+        width: 32% !important;
     }
     .Linked_data_button .oc-krimi-main-wrap
     {

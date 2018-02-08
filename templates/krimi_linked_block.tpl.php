@@ -8,10 +8,11 @@
 
 <script type="text/template" id="krimi-main-menu">
     <div class="view">
+    <div><span><b>Gå på odagelse i krimisidens database og find inspiration til dit næste lån</b></span><br/><br/></div>
     <a id="krimi_similar_books_button" class="Linked_data_button">
         <div id="oc_krimi_top_1" class="oc-krimi-main-wrap"  >
             <div class="">
-                <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
+               <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
             </div>
             <div>
                  <span>Lignende Forfattere</span>
@@ -21,7 +22,7 @@
     <a id="krimi_genre_view_button" class="Linked_data_button">
         <div class="oc-krimi-main-wrap" >
             <div>
-                <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
+              <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
             </div>
             <div >
                  <span>lignende Genre</span>
@@ -41,7 +42,7 @@
     <a class="Linked_data_button">
         <div id="oc_krimi_top_4" class="oc-krimi-main-wrap" >
             <div>
-                <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
+                 <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
             </div>
             <div>
                 <span>Samme Hovedeperson?</span>
@@ -55,7 +56,7 @@
     <div class="krimi_similar_view">
     <h2>Bøger i Genre</h2>
     <div class="oc-krimi-menu"> 
-    <a class="krimi-back-btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
+    <a class="krimi-genre-back-btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
     <a id="krimi_goto_menu_btn">menu</a>
     </div>
 
@@ -102,6 +103,21 @@
     <% }); %>
     </div>
 </script>
+<!--- view: books by genre --->
+<script type="text/template" id="krimi-genre-similar-books">
+    <div class="krimi_similar_genre_view">
+    <div class="oc-krimi-menu"> 
+    <a class="krimi-genre-back-btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
+    <a id="krimi_goto_menu_btn">menu</a>
+    </div>
+    <% _.each(similar.models, function(similarItem) { %>
+    <div class="krimi-cover-image">
+    <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
+    </div>
+    <% }); %>
+    </div>
+</script>
+<!--- Popup template--->
 <script type="text/template" id="krimi-display-similar-book">
     <div><img src="<%= entity.get('image') %>" title="<%= entity.get('name') %>" /></div>
     <div><b>Navn:</b><%= entity.get('name') %></div>
@@ -113,6 +129,7 @@
     <div><a href="">find lignende med hovedeperson</a></div>
     <div><a href="">Lån Bogen</a></div>
 </script>
+
 <!-- View similar authors in genre--->
 <script type="text/template" id="krimi-authors-in-genre">
     <h2>Forfaterer som skriver i samme genre</h2>
