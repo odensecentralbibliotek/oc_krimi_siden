@@ -48,7 +48,7 @@ function oc_krimi_siden_linked_data_content_type_render($subtype, $conf, $panel_
       drupal_add_js(drupal_get_path('module', 'oc_krimi_siden') .'/js/backbone_collections.js');
       drupal_add_js(drupal_get_path('module', 'oc_krimi_siden') .'/js/backbone_views.js');
       drupal_add_js(drupal_get_path('module', 'oc_krimi_siden') .'/js/oc_krimi_siden.js');
-      drupal_add_js(drupal_get_path('module', 'oc_krimi_siden') .'/js/jquery.easyPaginate/lib/jquery.easyPaginate.js');
+      drupal_add_js(drupal_get_path('module', 'oc_krimi_siden') .'/js/jquery.easyPaginate.js');
       
       drupal_add_css(drupal_get_path('module', 'oc_krimi_siden') .'/css/oc_krimi_siden.css');
       $block->content = theme("krimi_linked_block");
