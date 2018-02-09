@@ -75,7 +75,7 @@ function oc_krimi_siden_get_single_rdf_internal($faust)
 
 function oc_krimi_siden_get_books_by_location($location)
 {
-    $location = "http://krimisiden.dk/content.php?page=" . rawurldecode($_GET["page"]);
+    $location = "http://krimisiden.dk/content.php?" . $location;
     $query = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?genre schema:contentLocation <%#%> .?genre ?o ?p}';
     $query = str_replace('%#%', $location, $get_books_by_genre_sparql);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($query) . "&output=json";
@@ -85,6 +85,7 @@ function oc_krimi_siden_get_books_by_location($location)
 }
 function oc_krimi_siden_get_books_by_main_char($main_char)
 {
+    $main_char = "http://krimisiden.dk/content.php?" . $main_char;
     $get_books_by_main_char_sparql = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?mainchar schema:mainCharacter "%#%" . ?mainchar ?o ?p }';
     $get_books_by_main_char_sparql = str_replace('%#%', $main_char, $get_books_by_main_char_sparql);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_books_by_main_char_sparql) . "&output=json";
@@ -94,7 +95,7 @@ function oc_krimi_siden_get_books_by_main_char($main_char)
 }
 function oc_krimi_siden_get_books_by_genre($genre)
 {
-    $genre = "http://krimisiden.dk/content.php?page=" . rawurldecode($_GET["page"]);
+    $genre = "http://krimisiden.dk/content.php?" . $genre;
     $get_books_by_genre_sparql = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?genre schema:genre <%#%> .?genre ?o ?p}';
     $get_books_by_genre_sparql = str_replace('%#%', $genre, $get_books_by_genre_sparql);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_books_by_genre_sparql) . "&output=json";

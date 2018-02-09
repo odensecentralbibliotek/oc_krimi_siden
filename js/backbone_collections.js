@@ -100,9 +100,10 @@ krimi_app.books_by_author_rdf = Backbone.Collection.extend(
             this.reset();
             var _url = this.url;
             this.url =   krimi_app.app_data.get("get_books_by_genre_sparql");
+            var nginx_not_like = genre.split("?");
             if( genre ){
-                this.url = this.url.replace("%#%",genre);
-                this.url = krimi_app.app_data.get("service_url") + this.url;
+                this.url = this.url.replace("%#%",nginx_not_like[1]);
+                this.url = krimi_app.app_data.get("service_url") +this.url;
             }
             this.fetch( options );
 
