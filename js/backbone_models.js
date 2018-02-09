@@ -6,8 +6,6 @@ jQuery( document ).ready(function() {
     krimi_app = {}; // create namespace for our app
     krimi_app.defined_data = Backbone.Model.extend({
         defaults: {
-        current_author: '',
-        selectionHistory: '',
         service_url: host,
         get_books_by_author_sparql: '/krimi/get-books-by-author/%#%',
         get_books_by_main_char_sparql: '/krimi/get-books-by-main-char/%#%',

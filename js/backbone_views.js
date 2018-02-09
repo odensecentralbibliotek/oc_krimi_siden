@@ -3,7 +3,7 @@
  */
 jQuery( document ).ready(function() {
      /*
-     * View authors in viewd book genres
+     * View authors in viewed book genres
      */
     krimi_app.show_authors_in_viewd_book_genre = Backbone.View.extend({
         className: 'krimi-author-in-viewd-book-genres-items-view',
@@ -36,7 +36,7 @@ jQuery( document ).ready(function() {
     });
     
      /*
-     * View book genres
+     * View book similar genres
      */
     krimi_app.show_genre_similar_items = Backbone.View.extend({
         className: 'krimi-genre-similar-items-view',
@@ -53,6 +53,11 @@ jQuery( document ).ready(function() {
         render: function(){
           this.template = _.template(jQuery("#krimi-genre-similar-books").html());
           this.$el.html(this.template({"similar": krimi_app.books_by_author_rdf}));
+              jQuery('#paginator').easyPaginate({
+                    paginateElement: 'div',
+                    elementsPerPage: 8,
+                    effect: 'fade'
+                });
         },
         goto_menu: function(){
             krimi_app.MainView.render();  
@@ -67,7 +72,7 @@ jQuery( document ).ready(function() {
     });
     
     /*
-     * View books by genres
+     * View genres
      */
     krimi_app.show_genres = Backbone.View.extend({
         className: 'krimi-genre-view',
@@ -105,7 +110,7 @@ jQuery( document ).ready(function() {
     });
     
     /*
-     * View similar items
+     * View similar items selected author
      */
     krimi_app.SimilarBooks = Backbone.View.extend({
         className: 'krimi-similar-view',
@@ -123,6 +128,11 @@ jQuery( document ).ready(function() {
         render: function(){
           this.template = _.template(jQuery("#krimi-similar-books").html());
           this.$el.html(this.template({"similar": krimi_app.books_by_author_rdf}));
+          jQuery('#paginator').easyPaginate({
+                paginateElement: 'div',
+                elementsPerPage: 8,
+                effect: 'fade'
+            });
         },
         goto_menu: function(){
             krimi_app.MainView.render();  

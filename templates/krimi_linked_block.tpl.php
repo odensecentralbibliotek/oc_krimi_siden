@@ -1,6 +1,5 @@
 <?php ?>
 <div class="krimi-wrapper">
-    <div id="oc_krimi_menu"></div>
     <div id="oc_krimi_app">
 
     </div>
@@ -8,48 +7,58 @@
 
 <script type="text/template" id="krimi-main-menu">
     <div class="view">
-    <div><span><b>Gå på odagelse i krimisidens database og find inspiration til dit næste lån</b></span><br/><br/></div>
-    <a id="krimi_similar_books_button" class="Linked_data_button">
-        <div id="oc_krimi_top_1" class="oc-krimi-main-wrap"  >
-            <div class="">
-               <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
+        <div><span><b>Gå på odagelse i krimisidens database og find inspiration til dit næste lån</b></span><br/><br/></div>
+
+        <div  class="Linked_data_button">
+        <a id="krimi_similar_books_button">
+            <div id="oc_krimi_top_1" class=""  >
+                <div class="">
+
+                </div>
+                <div>
+                     <span><span>Lignende Forfattere</span>
+                </div>
             </div>
-            <div>
-                 <span>Lignende Forfattere</span>
-            </div>
+        </a>
         </div>
-    </a>
-    <a id="krimi_genre_view_button" class="Linked_data_button">
-        <div class="oc-krimi-main-wrap" >
-            <div>
-              <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
+        <div class="Linked_data_button">
+        <a id="krimi_genre_view_button" >
+            <div class="" >
+                <div>
+
+                </div>
+                <div >
+                     <span><span>lignende Genre</span>
+                </div>
             </div>
-            <div >
-                 <span>lignende Genre</span>
-            </div>
+        </a>
         </div>
-    </a>
-     <a class="Linked_data_button">
-        <div id="oc_krimi_top_3" class="oc-krimi-main-wrap" >
-            <div>
-                <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
+        <div class="Linked_data_button">
+         <a>
+            <div id="oc_krimi_top_3" class="" >
+                <div>
+
+                </div>
+                <div>
+                  <div><span>Samme lokation</span></div>
+                </div>
             </div>
-            <div>
-              <span>lignende Steder?</span>
-            </div>
+        </a>
         </div>
-    </a>
-    <a class="Linked_data_button">
-        <div id="oc_krimi_top_4" class="oc-krimi-main-wrap" >
-            <div>
-                 <img  src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
+        <div class="Linked_data_button">
+         <a>
+            <div id="oc_krimi_top_3" class="" >
+                <div>
+
+                </div>
+                <div>
+                  <div><span>Samme hovedeperson</span></div>
+                </div>
             </div>
-            <div>
-                <span>Samme Hovedeperson?</span>
-            </div>
+        </a>
         </div>
-    </a>
     </div>
+    
 </script>
 <!--- view: Genre selection --->
 <script type="text/template" id="krimi-genre-similar-books">
@@ -59,12 +68,13 @@
     <a class="krimi-genre-back-btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
     <a id="krimi_goto_menu_btn">menu</a>
     </div>
-
+    <div id="paginator">
     <% _.each(similar.models, function(similarItem) { %>
     <div class="krimi-cover-image">
     <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
     </div>
     <% }); %>
+     </div>
     </div>
 </script>
 <!--- book genres -->
@@ -110,11 +120,13 @@
     <a class="krimi-genre-back-btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
     <a id="krimi_goto_menu_btn">menu</a>
     </div>
+    <div id="paginator">
     <% _.each(similar.models, function(similarItem) { %>
     <div class="krimi-cover-image">
     <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
     </div>
     <% }); %>
+    </div>
     </div>
 </script>
 <!--- Popup template--->
@@ -140,7 +152,7 @@
     <% _.each(authors.models, function(author) { %>
     <a id="<%= author.get('author').value %>" class="krimi-follow-author-in-genre Linked_data_button">
     <div class="oc-krimi-genre-wrap" >
-        <img class="krimi-author-profile-image" src="default.jpg" />
+        <img class="krimi-author-profile-image" src="<?php echo "/" . drupal_get_path('module', 'oc_krimi_siden') . "/images/hcandersen.png"; ?>" />
          <div>
             <%= author.get('author').value %>
          </div>

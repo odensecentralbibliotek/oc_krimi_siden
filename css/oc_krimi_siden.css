@@ -1,35 +1,38 @@
     .Linked_data_button
     {
-        display:inline-block;
         cursor: pointer !important;
-        display:inline-block;
-         width: 24%;
-         height: 100%;
-         word-wrap: break-word;
+        padding:10px;
+        display: inline-block;
+        margin:5px;
+        width: 20%;
+        border: 1px dotted black;
+        height: 100px;
     }
     .krimi-follow-similar-genre
     {
-        width: 32% !important;
+        //width: 32% !important;
+        float:none;
     }
     .Linked_data_button .oc-krimi-main-wrap
     {
          height: 100px;
+         max-height: 100px;
          text-align: center;
          display:inline-block;
-         width: 100%;
-         border: 1px dotted black;
+         
     }
     .oc-krimi-genre-wrap{
          height: 100px;
          text-align: center;
          display:inline-block;
          width: 100%;
-         border: 1px dotted black;
+         //border: 1px dotted black;
     }
     .oc-krimi-genre-wrap img
     {
         width:100% !important;
         height: 50px !important;
+        float:left;
     }
     .oc-krimi-menu a 
     {
@@ -62,3 +65,11 @@
         margin: 10px;
     }
 
+/*
+* easy paginate
+*/
+    /* Cosmetic only */
+    #easyPaginate {width:300px;}
+    #easyPaginate img {display:block;margin-bottom:10px;}
+    .easyPaginateNav a {padding:5px;}
+    .easyPaginateNav a.current {font-weight:bold;text-decoration:underline;}

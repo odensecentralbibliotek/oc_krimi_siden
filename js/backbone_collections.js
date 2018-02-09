@@ -7,7 +7,7 @@ krimi_app.books_in_viewed_book_genre_rdf = Backbone.Collection.extend(
         // Url to request when fetch() is called
         url:  krimi_app.app_data.get("service_url") +  krimi_app.app_data.get("get_authors_in_book_genre_sparql"),
         parse: function(response) {
-            debugger;
+           
             var test = response["results"]["bindings"];
             for (var i = 0, length = test.length; i < length; i++) {
                 this.push(test[i]);
@@ -26,7 +26,7 @@ krimi_app.books_in_viewed_book_genre_rdf = Backbone.Collection.extend(
             return jQuery.ajax(params);
         },
         fetch_rdf: function( options, author ){
-            debugger;
+            
             this.reset();
             var _url = this.url;
 

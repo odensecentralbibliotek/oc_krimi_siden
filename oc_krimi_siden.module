@@ -1,5 +1,4 @@
 <?php
-//include_once 'vendor/autoload.php';
 
 function oc_krimi_siden_menu() {
   $items['krimi/get-authors-in-genre/%'] = array(
@@ -62,15 +61,27 @@ function oc_krimi_siden_ctools_plugin_directory($module, $plugin) {
       ),
     );
 }
+function oc_krimi_siden_get_single_rdf_internal($faust)
+{
+    $query = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?genre schema:productID "faust:%#%" .?genre ?o ?p}';
+    $query = str_replace('%#%', $faust, $query);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($query) . "&output=json";
+    $data = file_get_contents($url);
+    return json_decode($data);
+}
 /*
  * Api methods
  */
-function oc_krimi_siden_get_by_isbn()
+
+function oc_krimi_siden_get_books_by_location($location)
 {
-}
-function oc_krimi_siden_get_books_by_location()
-{
-    
+    $location = "http://krimisiden.dk/content.php?page=" . rawurldecode($_GET["page"]);
+    $query = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?genre schema:contentLocation <%#%> .?genre ?o ?p}';
+    $query = str_replace('%#%', $location, $get_books_by_genre_sparql);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($query) . "&output=json";
+    $data = file_get_contents($url);
+    echo $data;
+    drupal_exit();
 }
 function oc_krimi_siden_get_books_by_main_char($main_char)
 {
