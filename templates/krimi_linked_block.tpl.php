@@ -92,11 +92,13 @@
     <a class="krimi-back-btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
     <a id="krimi_goto_menu_btn">menu</a>
     </div>
+    <div id="paginator">
     <% _.each(similar.models, function(similarItem) { %>
     <div class="krimi-cover-image">
     <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
     </div>
     <% }); %>
+    </div>
     </div>
 </script>
 <!--- view: books by genre --->
