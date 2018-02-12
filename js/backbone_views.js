@@ -18,13 +18,22 @@ jQuery( document ).ready(function() {
         'click .krimi-follow-author-in-genre': 'Get_books_by_author',
         },
         render: function(){
-          this.template = _.template(jQuery("#krimi-authors-in-genre").html());
+          
+          if(krimi_app.books_in_viewed_book_genre_rdf.size != 0)
+          {
+           this.template = _.template(jQuery("#krimi-authors-in-genre").html());
           this.$el.html(this.template({"authors": krimi_app.books_in_viewed_book_genre_rdf}));
                         jQuery('#paginator').easyPaginate({
                     paginateElement: 'a',
                     elementsPerPage: 12,
                     effect: 'fade'
                 });
+          }
+          else
+          {
+              this.template = _.template(jQuery("#krimi-display-no-results").html());
+              this.$el.html(this.template());
+          }
         },
         goto_menu: function(){
             krimi_app.MainView.render();  

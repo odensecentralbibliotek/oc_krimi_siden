@@ -147,6 +147,12 @@
     </div>
     </div>
 </script>
+
+<!--- No Results--->
+<script type="text/template" id="krimi-display-no-results">
+   <h2>Vi fandt desværre ikke brugbare resultater.</h2>
+   <span>Kontakt <a href="krimisiden.dk">krimisiden.dk</a> hvis du mener her mangler noget.</span>
+</script>
 <!---end -->
 <div id="krimi-dialog" title="Linked Data handlings boks" style="display:none;">
     <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
