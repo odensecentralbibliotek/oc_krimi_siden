@@ -33,6 +33,10 @@
     {
         width:200px;
         height: 200px;
+        min-width:200px;
+        min-height: 200px;
+        max-width:200px;
+        max-height: 200px;
         background-image: url(/sites/all/modules/custom/oc_krimi_siden/images/krimi-siden.logo.png);
         background-color: lightslategray;
     }
