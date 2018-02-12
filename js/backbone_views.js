@@ -18,8 +18,8 @@ jQuery( document ).ready(function() {
         'click .krimi-follow-author-in-genre': 'Get_books_by_author',
         },
         render: function(){
-          
-          if(krimi_app.books_in_viewed_book_genre_rdf.size != 0)
+          debugger;
+          if(krimi_app.books_in_viewed_book_genre_rdf.length != 0)
           {
            this.template = _.template(jQuery("#krimi-authors-in-genre").html());
           this.$el.html(this.template({"authors": krimi_app.books_in_viewed_book_genre_rdf}));

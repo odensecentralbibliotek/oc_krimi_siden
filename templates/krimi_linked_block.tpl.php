@@ -150,6 +150,9 @@
 
 <!--- No Results--->
 <script type="text/template" id="krimi-display-no-results">
+    <div class="oc-krimi-menu"> 
+    <a id="krimi_goto_menu_btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
+    </div>
    <h2>Vi fandt desværre ikke brugbare resultater.</h2>
    <span>Kontakt <a href="krimisiden.dk">krimisiden.dk</a> hvis du mener her mangler noget.</span>
 </script>
