@@ -39,6 +39,7 @@
         max-height: 200px;
         background-image: url(/sites/all/modules/custom/oc_krimi_siden/images/krimi-siden.logo.png);
         background-color: lightslategray;
+        float:left;
     }
         .oc-krimi-genre-wrap img
     {
