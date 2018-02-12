@@ -32,10 +32,10 @@ function oc_krimi_siden_linked_data_content_type_render($subtype, $conf, $panel_
       $data["subjects"] = $entity->subjects;
       /*
        * load with interesting rdf data also.
-       */
+      
       $rdf = oc_krimi_siden_get_single_rdf_internal($entity->localId);
       $data["location"] = $rdf->contentLocation;
-      $data["mainchar"] = $rdf->character;
+      $data["mainchar"] = $rdf->character; */
       
       drupal_add_js(array(
         'oc_krimi_siden' => $data,

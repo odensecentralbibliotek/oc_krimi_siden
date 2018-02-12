@@ -1,63 +1,53 @@
 <?php ?>
 <div class="krimi-wrapper">
     <div id="oc_krimi_app">
-
+        
     </div>
 </div>
 
 <script type="text/template" id="krimi-main-menu">
-    <div class="view">
-        <div><span><b>Gå på odagelse i krimisidens database og find inspiration til dit næste lån</b></span><br/><br/></div>
-
+<div>
+    <div class="main-krimi-header"><b>Gå på odagelse i krimisidens database og find inspiration til dit næste lån</b></div>
+    <div class="main-krimi-buttons" >
+     <a id="krimi_similar_books_button" >
         <div  class="Linked_data_button">
-        <a id="krimi_similar_books_button">
-            <div id="oc_krimi_top_1" class=""  >
-                <div class="">
-
-                </div>
-                <div>
-                     <span><span>Lignende Forfattere</span>
-                </div>
-            </div>
-        </a>
+           
+                    <div class="krimi-css-btn">
+                        <span>Find forfattere som minder om</span>
+                    </div>
         </div>
-        <div class="Linked_data_button">
+        </a>
         <a id="krimi_genre_view_button" >
-            <div class="" >
-                <div>
+        <div  class="Linked_data_button">
+            
+                <div class="krimi-css-btn">
+                    <span>Find bøger indenfor lignende Genre</span>
+                </div>
 
-                </div>
-                <div >
-                     <span><span>lignende Genre</span>
-                </div>
-            </div>
-        </a>
+            
         </div>
-        <div class="Linked_data_button">
-         <a>
-            <div id="oc_krimi_top_3" class="" >
-                <div>
+        </a>
+        <a id="" >
+        <div  class="Linked_data_button" >
+            
+                    <div class="krimi-css-btn">
+                        <span>Find bøger som foregår på samme lokation</span>
+                    </div>
 
-                </div>
-                <div>
-                  <div><span>Samme lokation</span></div>
-                </div>
-            </div>
-        </a>
+            
         </div>
-        <div class="Linked_data_button">
-         <a>
-            <div id="oc_krimi_top_3" class="" >
-                <div>
-
-                </div>
-                <div>
-                  <div><span>Samme hovedeperson</span></div>
-                </div>
-            </div>
         </a>
+        <a id="" >
+        <div  class="Linked_data_button" >
+            
+                    <div class="krimi-css-btn">
+                        <span>Find bøger som har samme hovedeperson</span>
+                    </div>
+            </a>
         </div>
+        </a>
     </div>
+</div>
     
 </script>
 <!--- view: Genre selection --->
@@ -89,7 +79,7 @@
         
     <a id="<%= genre.get('identifier').value %>" class="krimi-follow-similar-genre Linked_data_button">
         <div class="oc-krimi-genre-wrap" >
-            <img src="<%= genre.get('genre_billede').value %>" />
+            <img src="<%= '/sites/all/modules/custom/oc_krimi_siden/images/' + (genre.get('genre_billede').value).replace('/','').replace('?','') %>" />
             <div>
                 <span><%= genre.get('label').value %></span>
             </div>

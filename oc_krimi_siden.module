@@ -114,7 +114,7 @@ function oc_krimi_siden_get_books_by_author($author)
 }
 function oc_krimi_siden_get_author_genres($author)
 {
-    $get_book_genres_sparql = 'PREFIX schema: <http://schema.org/> SELECT distinct ?identifier ?label ?genre_billede WHERE {  ?s schema:author "%#%" .  ?s schema:genre ?identifier .  ?identifier schema:name ?label .  BIND(CONCAT("https://www.odensebib.dk/sites/www.odensebib.dk/files/", ?label, ".jpg") AS ?genre_billede) .}';
+    $get_book_genres_sparql = 'PREFIX schema: <http://schema.org/> SELECT distinct ?identifier ?label ?genre_billede WHERE {  ?s schema:author "%#%" .  ?s schema:genre ?identifier .  ?identifier schema:name ?label .  BIND(CONCAT("", ?label, ".jpg") AS ?genre_billede) .}';
     $get_book_genres_sparql = str_replace('%#%', $author, $get_book_genres_sparql);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_book_genres_sparql) . "&output=json";
     $data = file_get_contents($url);
