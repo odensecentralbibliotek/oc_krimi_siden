@@ -26,16 +26,18 @@
     .krimi-cover-image
     {
         display:inline-block;
+        margin-right: 5px;
 
     }
     .krimi-cover-image img
     {
-        width:150px;
+        width:200px;
+        height: 200px;
     }
         .oc-krimi-genre-wrap img
     {
         width:100% !important;
-        height: 50px !important;
+        height: 90px !important;
         float:left;
     }
    /* .krimi-follow-similar-genre

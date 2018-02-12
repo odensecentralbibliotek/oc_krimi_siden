@@ -20,6 +20,11 @@ jQuery( document ).ready(function() {
         render: function(){
           this.template = _.template(jQuery("#krimi-authors-in-genre").html());
           this.$el.html(this.template({"authors": krimi_app.books_in_viewed_book_genre_rdf}));
+                        jQuery('#paginator').easyPaginate({
+                    paginateElement: 'a',
+                    elementsPerPage: 12,
+                    effect: 'fade'
+                });
         },
         goto_menu: function(){
             krimi_app.MainView.render();  
@@ -55,7 +60,7 @@ jQuery( document ).ready(function() {
           this.$el.html(this.template({"similar": krimi_app.books_by_author_rdf}));
               jQuery('#paginator').easyPaginate({
                     paginateElement: 'div',
-                    elementsPerPage: 8,
+                    elementsPerPage: 9,
                     effect: 'fade'
                 });
         },

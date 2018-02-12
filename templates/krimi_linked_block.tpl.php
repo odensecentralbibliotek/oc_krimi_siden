@@ -23,8 +23,6 @@
                 <div class="krimi-css-btn">
                     <span>Find bøger indenfor lignende Genre</span>
                 </div>
-
-            
         </div>
         </a>
         <a id="" >
@@ -32,9 +30,7 @@
             
                     <div class="krimi-css-btn">
                         <span>Find bøger som foregår på samme lokation</span>
-                    </div>
-
-            
+                    </div>    
         </div>
         </a>
         <a id="" >
@@ -139,6 +135,7 @@
     <a id="krimi_goto_menu_btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
     </div>
     <div>
+    <div id="paginator">
     <% _.each(authors.models, function(author) { %>
     <a id="<%= author.get('author').value %>" class="krimi-follow-author-in-genre Linked_data_button">
     <div class="oc-krimi-genre-wrap" >
@@ -149,6 +146,7 @@
     </div>
     </a>
     <% }); %>
+    </div>
     </div>
 </script>
 <!---end -->
