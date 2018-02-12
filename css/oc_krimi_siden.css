@@ -40,6 +40,7 @@
         background-image: url(/sites/all/modules/custom/oc_krimi_siden/images/krimi-siden.logo.png);
         background-color: lightslategray;
         float:left;
+        cursor: pointer !important;
     }
         .oc-krimi-genre-wrap img
     {

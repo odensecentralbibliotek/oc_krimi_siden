@@ -21,7 +21,7 @@
         <div  class="Linked_data_button">
             
                 <div class="krimi-css-btn">
-                    <span>Find bøger indenfor lignende Genre</span>
+                    <span>Find bøger som har lignende Genrer</span>
                 </div>
         </div>
         </a>
@@ -123,11 +123,7 @@
     <div><b>Navn:</b><%= entity.get('name') %></div>
     <div><b>Beskrivelse:</b><%= entity.get('description') %></div>
     <br/>
-    <div><a href="">Find lignende med værk</a></div>
-    <div><a href="">Find lignende med genre</a></div>
-    <div><a href="">Find lignende med sted</a></div>
-    <div><a href="">find lignende med hovedeperson</a></div>
-    <div><a href="">Lån Bogen</a></div>
+    <div><a class="pop_up_search_link" target="_blank" href="<%= '/search/ting/' + query %>">Lån Bogen</a></div>
 </script>
 
 <!-- View similar authors in genre--->

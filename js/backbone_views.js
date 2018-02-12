@@ -147,10 +147,12 @@ jQuery( document ).ready(function() {
         },
         display_item: function(e){
             var target = jQuery(e.currentTarget);
+            var query_string = target.find('img').attr('title');
             var found = krimi_app.books_by_author_rdf.findWhere({'identifier': target.attr('id')});
             var tmpl = _.template(jQuery('#krimi-display-similar-book').html());
-            var html = tmpl({'entity': found});
+            var html = tmpl({'entity': found,'query': query_string});
             jQuery("#krimi-dialog").html(html);
+            
             jQuery("#krimi-dialog").dialog();
         }
     });
