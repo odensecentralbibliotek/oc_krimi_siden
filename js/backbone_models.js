@@ -9,6 +9,7 @@ jQuery( document ).ready(function() {
         service_url: host,
         get_books_by_author_sparql: '/krimi/get-books-by-author/%#%',
         get_books_by_main_char_sparql: '/krimi/get-books-by-main-char/%#%',
+        get_books_by_location_sparql: '/krimi/get-books-by-location/%#%',
         get_books_by_genre_sparql: '/krimi/get-books-by-genre/%#%',
         get_book_genres_sparql: '/krimi/get-author-genres/%#%',
         get_authors_in_book_genre_sparql: '/krimi/get-authors-in-genre/%#%'

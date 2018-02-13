@@ -1,10 +1,7 @@
-/*
- * Setup the backbone js to handle the browsing of linked data
- */
 jQuery( document ).ready(function() {
-     /*
-     * View authors in viewed book genres
-     */
+/*
+* View authors in viewed book genres
+*/
     krimi_app.show_authors_in_viewd_book_genre = Backbone.View.extend({
         className: 'krimi-author-in-viewd-book-genres-items-view',
         el: '#oc_krimi_app',
@@ -49,9 +46,9 @@ jQuery( document ).ready(function() {
             },
     });
     
-     /*
-     * View book similar genres
-     */
+/*
+* View book similar genres
+*/
     krimi_app.show_genre_similar_items = Backbone.View.extend({
         className: 'krimi-genre-similar-items-view',
         el: '#oc_krimi_app',
@@ -65,13 +62,21 @@ jQuery( document ).ready(function() {
         'click .krimi-genre-back-btn':'go_back',
         },
         render: function(){
-          this.template = _.template(jQuery("#krimi-genre-similar-books").html());
-          this.$el.html(this.template({"similar": krimi_app.books_by_author_rdf}));
-              jQuery('#paginator').easyPaginate({
-                    paginateElement: 'div',
-                    elementsPerPage: 9,
-                    effect: 'fade'
-                });
+             if(krimi_app.books_by_author_rdf.length != 0)
+          {
+            this.template = _.template(jQuery("#krimi-genre-similar-books").html());
+            this.$el.html(this.template({"similar": krimi_app.books_by_author_rdf}));
+                jQuery('#paginator').easyPaginate({
+                      paginateElement: 'div',
+                      elementsPerPage: 9,
+                      effect: 'fade'
+                  });
+           }
+           else
+           {
+              this.template = _.template(jQuery("#krimi-display-no-results").html());
+              this.$el.html(this.template());
+           }
         },
         goto_menu: function(){
             krimi_app.MainView.render();  
@@ -85,9 +90,9 @@ jQuery( document ).ready(function() {
         }
     });
     
-    /*
-     * View genres
-     */
+/*
+ * View genres
+ */
     krimi_app.show_genres = Backbone.View.extend({
         className: 'krimi-genre-view',
         el: '#oc_krimi_app',
@@ -123,9 +128,9 @@ jQuery( document ).ready(function() {
         }
     });
     
-    /*
-     * View similar items selected author
-     */
+/*
+ * View similar items selected author
+ */
     krimi_app.SimilarBooks = Backbone.View.extend({
         className: 'krimi-similar-view',
         el: '#oc_krimi_app',
@@ -165,5 +170,105 @@ jQuery( document ).ready(function() {
             jQuery("#krimi-dialog").dialog();
         }
     });
-
+/*
+ * View similar items with same main char
+ */
+    krimi_app.SimilarBooksbyMainChar = Backbone.View.extend({
+        className: 'krimi-similar-main-char-view',
+        el: '#oc_krimi_app',
+        template: null,
+         initialize: function(){
+            
+          // create a collection
+          //this.render();
+        },
+        events: {
+        'click #krimi_goto_menu_btn': 'goto_menu',
+        'click .main-char-similar-item': 'display_item',
+        'click .krimi-back-btn_main_char': 'krimi_main_chargo_back',
+        },
+        render: function(){
+            debugger;
+            if(krimi_app.books_with_similar_main_char_rdf.length != 0)
+            {
+                this.template = _.template(jQuery("#krimi-similar-by_main_char_tpl").html());
+                this.$el.html(this.template({"similar": krimi_app.books_with_similar_main_char_rdf}));
+                jQuery('#paginator').easyPaginate({
+                      paginateElement: 'div',
+                      elementsPerPage: 9,
+                      effect: 'fade'
+                  });
+            }
+            else
+            {
+              this.template = _.template(jQuery("#krimi-display-no-results").html());
+              this.$el.html(this.template());
+            }
+        },
+        goto_menu: function(){
+            krimi_app.MainView.render();  
+        },
+        krimi_main_chargo_back: function(){
+            krimi_app.MainView.render();
+        },
+        display_item: function(e){
+            var target = jQuery(e.currentTarget);
+            var query_string = target.find('img').attr('title');
+            var found = krimi_app.books_with_similar_main_char_rdf.findWhere({'identifier': target.attr('id')});
+            var tmpl = _.template(jQuery('#krimi-display-similar-book').html());
+            var html = tmpl({'entity': found,'query': query_string});
+            jQuery("#krimi-dialog").html(html);
+            jQuery("#krimi-dialog").dialog();
+        }
+    });
+    /*
+    * View similar items with same location
+    */
+    krimi_app.SimilarBooksbyLocation = Backbone.View.extend({
+        className: 'krimi-similar-location-view',
+        el: '#oc_krimi_app',
+        template: null,
+         initialize: function(){
+            
+          // create a collection
+          //this.render();
+        },
+        events: {
+        'click #krimi_goto_menu_btn': 'goto_menu',
+        'click .lokation-similar-item': 'display_item',
+        'click .krimi-back-btn_location': 'krimi_main_chargo_back',
+        },
+        render: function(){
+            if(krimi_app.books_with_similar_location_rdf.length != 0)
+            {
+                this.template = _.template(jQuery("#krimi-similar-by_lokationer_tpl").html());
+                this.$el.html(this.template({"similar": krimi_app.books_with_similar_location_rdf}));
+                jQuery('#paginator').easyPaginate({
+                      paginateElement: 'div',
+                      elementsPerPage: 9,
+                      effect: 'fade'
+                  });
+            }
+            else
+            {
+              this.template = _.template(jQuery("#krimi-display-no-results").html());
+              this.$el.html(this.template());
+            }
+        },
+        goto_menu: function(){
+            krimi_app.MainView.render();  
+        },
+        krimi_main_chargo_back: function(){
+            krimi_app.MainView.render();
+        },
+        display_item: function(e){
+            var target = jQuery(e.currentTarget);
+            var query_string = target.find('img').attr('title');
+            var found = krimi_app.books_with_similar_location_rdf.findWhere({'identifier': target.attr('id')});
+            var tmpl = _.template(jQuery('#krimi-display-similar-book').html());
+            var html = tmpl({'entity': found,'query': query_string});
+            jQuery("#krimi-dialog").html(html);
+            jQuery("#krimi-dialog").dialog();
+        }
+    });
 });

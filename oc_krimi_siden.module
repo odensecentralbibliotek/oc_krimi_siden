@@ -33,7 +33,12 @@ function oc_krimi_siden_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  
+    $items['krimi/get-books-by-location/%'] = array(
+    'page callback' => 'oc_krimi_siden_get_books_by_location',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 /**
@@ -77,7 +82,7 @@ function oc_krimi_siden_get_books_by_location($location)
 {
     $location = "http://krimisiden.dk/content.php?" . $location;
     $query = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?genre schema:contentLocation <%#%> .?genre ?o ?p}';
-    $query = str_replace('%#%', $location, $get_books_by_genre_sparql);
+    $query = str_replace('%#%', $location, $query);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($query) . "&output=json";
     $data = file_get_contents($url);
     echo $data;
@@ -86,7 +91,7 @@ function oc_krimi_siden_get_books_by_location($location)
 function oc_krimi_siden_get_books_by_main_char($main_char)
 {
     $main_char = "http://krimisiden.dk/content.php?" . $main_char;
-    $get_books_by_main_char_sparql = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?mainchar schema:mainCharacter "%#%" . ?mainchar ?o ?p }';
+    $get_books_by_main_char_sparql = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?mainchar schema:character <%#%> . ?mainchar ?o ?p }';
     $get_books_by_main_char_sparql = str_replace('%#%', $main_char, $get_books_by_main_char_sparql);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_books_by_main_char_sparql) . "&output=json";
     $data = file_get_contents($url);

@@ -146,6 +146,94 @@ krimi_app.books_by_author_rdf = Backbone.Collection.extend(
             this.url = _url;
         }
     });
+    // Get Book with same main char
+    krimi_app.books_with_similar_main_char_rdf = Backbone.Collection.extend(
+    {
+    
+        // Url to request when fetch() is called
+        url:   krimi_app.app_data.get("get_books_by_main_char_sparql"),
+        parse: function(response) {
+         if(response["@graph"] != undefined)
+         {
+            var test =  response["@graph"];
+            for (var i = 0, length = test.length; i < length; i++) {
+                this.push(test[i]);
+            } 
+         }
+            return this.models;
+        },
+        // Overwrite the sync method to pass over the Same Origin Policy
+        sync: function(method, model, options) {
+            var that = this;
+                var params = _.extend({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: that.url,
+                    processData: false
+                }, options);
+            return jQuery.ajax(params);
+        },
+        fetch_rdf: function( options , mainchar ){
+            this.reset();
+            var _url = this.url;
+            var nginx_not_like = mainchar.split("?");
+            if( mainchar ){
+                this.url = this.url.replace("%#%",nginx_not_like[1]);
+                this.url = krimi_app.app_data.get("service_url") +this.url;
+            }
+            else
+            {
+                this.url = this.url.replace("%#%",'empty');
+            }
+            this.fetch( options );
+
+            this.url = _url;
+        }
+    });
+    // Get Book with same similar location
+    krimi_app.books_with_similar_location_rdf = Backbone.Collection.extend(
+    {
+    
+        // Url to request when fetch() is called
+        url:   krimi_app.app_data.get("get_books_by_location_sparql"),
+        parse: function(response) {
+         if(response["@graph"] != undefined)
+         {
+            var test =  response["@graph"];
+            for (var i = 0, length = test.length; i < length; i++) {
+                this.push(test[i]);
+            } 
+         }
+            return this.models;
+        },
+        // Overwrite the sync method to pass over the Same Origin Policy
+        sync: function(method, model, options) {
+            var that = this;
+                var params = _.extend({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: that.url,
+                    processData: false
+                }, options);
+            return jQuery.ajax(params);
+        },
+        fetch_rdf: function( options , mainchar ){
+            this.reset();
+            var _url = this.url;
+            var nginx_not_like = mainchar.split("?");
+            if( mainchar ){
+                this.url = this.url.replace("%#%",nginx_not_like[1]);
+                this.url = krimi_app.app_data.get("service_url") +this.url;
+            }
+            else
+            {
+                this.url = this.url.replace("%#%",'empty');
+            }
+            this.fetch( options );
+
+            this.url = _url;
+        }
+    });
     
 });
 

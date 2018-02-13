@@ -9,7 +9,7 @@
 <div>
     <div class="main-krimi-header"><b>Gå på odagelse i krimisidens database og find inspiration til dit næste lån</b></div>
     <div class="main-krimi-buttons" >
-     <a id="krimi_similar_books_button" >
+     <a id="krimi_similar_authors_books_button" >
         <div  class="Linked_data_button">
            
                     <div class="krimi-css-btn">
@@ -25,7 +25,7 @@
                 </div>
         </div>
         </a>
-        <a id="" >
+        <a id="krimi_same_location_button" >
         <div  class="Linked_data_button" >
             
                     <div class="krimi-css-btn">
@@ -33,7 +33,7 @@
                     </div>    
         </div>
         </a>
-        <a id="" >
+        <a id="krimi_same_main_char_button" >
         <div  class="Linked_data_button" >
             
                     <div class="krimi-css-btn">
@@ -96,6 +96,36 @@
     <% _.each(similar.models, function(similarItem) { %>
     <div class="krimi-cover-image">
     <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
+    </div>
+    <% }); %>
+    </div>
+    </div>
+</script>
+<!--- view: books by author --->
+<script type="text/template" id="krimi-similar-by_main_char_tpl">
+    <div class="krimi_similar_view">
+    <div class="oc-krimi-menu"> 
+    <a class="krimi-back-btn_main_char"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
+    </div>
+    <div id="paginator">
+    <% _.each(similar.models, function(similarItem) { %>
+    <div class="krimi-cover-image">
+    <a id="<%= similarItem.get('identifier') %>" class="main-char-similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
+    </div>
+    <% }); %>
+    </div>
+    </div>
+</script>
+<!--- view: books by lokation --->
+<script type="text/template" id="krimi-similar-by_lokationer_tpl">
+    <div class="krimi_similar_view">
+    <div class="oc-krimi-menu"> 
+    <a class="krimi-back-btn_location"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
+    </div>
+    <div id="paginator">
+    <% _.each(similar.models, function(similarItem) { %>
+    <div class="krimi-cover-image">
+    <a id="<%= similarItem.get('identifier') %>" class="lokation-similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
     </div>
     <% }); %>
     </div>
