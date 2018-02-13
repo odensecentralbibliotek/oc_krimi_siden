@@ -29,7 +29,7 @@
         margin-right: 5px;
 
     }
-    .krimi-cover-image img
+    .krimi-cover-image img , #krimi-dialog img
     {
         width:200px;
         height: 200px;

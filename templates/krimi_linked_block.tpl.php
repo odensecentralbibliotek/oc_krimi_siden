@@ -262,6 +262,6 @@
    <span>Kontakt <a href="krimisiden.dk">krimisiden.dk</a> hvis du mener her mangler noget.</span>
 </script>
 <!---end -->
-<div id="krimi-dialog" title="Linked Data handlings boks" style="display:none;">
+<div id="krimi-dialog" title="Informationer" style="display:none;">
     <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
 </div>
