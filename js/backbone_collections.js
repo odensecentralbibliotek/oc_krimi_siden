@@ -100,8 +100,9 @@ krimi_app.books_by_author_rdf = Backbone.Collection.extend(
             this.reset();
             var _url = this.url;
             this.url =   krimi_app.app_data.get("get_books_by_genre_sparql");
-            var nginx_not_like = genre.split("?");
+           
             if( genre ){
+                var nginx_not_like = genre.split("?");
                 this.url = this.url.replace("%#%",nginx_not_like[1]);
                 this.url = krimi_app.app_data.get("service_url") +this.url;
             }
@@ -176,8 +177,9 @@ krimi_app.books_by_author_rdf = Backbone.Collection.extend(
         fetch_rdf: function( options , mainchar ){
             this.reset();
             var _url = this.url;
-            var nginx_not_like = mainchar.split("?");
+            
             if( mainchar ){
+                var nginx_not_like = mainchar.split("?");
                 this.url = this.url.replace("%#%",nginx_not_like[1]);
                 this.url = krimi_app.app_data.get("service_url") +this.url;
             }
@@ -220,8 +222,9 @@ krimi_app.books_by_author_rdf = Backbone.Collection.extend(
         fetch_rdf: function( options , mainchar ){
             this.reset();
             var _url = this.url;
-            var nginx_not_like = mainchar.split("?");
+            
             if( mainchar ){
+                var nginx_not_like = mainchar.split("?");
                 this.url = this.url.replace("%#%",nginx_not_like[1]);
                 this.url = krimi_app.app_data.get("service_url") +this.url;
             }
