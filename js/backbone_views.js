@@ -161,7 +161,7 @@ jQuery( document ).ready(function() {
         },
         display_item: function(e){
             var target = jQuery(e.currentTarget);
-            var query_string = target.find('img').attr('title');
+            var query_string = target.find('#faust').attr('value');
             var found = krimi_app.books_by_author_rdf.findWhere({'identifier': target.attr('id')});
             var tmpl = _.template(jQuery('#krimi-display-similar-book').html());
             var html = tmpl({'entity': found,'query': query_string});
@@ -213,7 +213,7 @@ jQuery( document ).ready(function() {
         },
         display_item: function(e){
             var target = jQuery(e.currentTarget);
-            var query_string = target.find('img').attr('title');
+            var query_string = target.find('#faust').attr('value');
             var found = krimi_app.books_with_similar_main_char_rdf.findWhere({'identifier': target.attr('id')});
             var tmpl = _.template(jQuery('#krimi-display-similar-book').html());
             var html = tmpl({'entity': found,'query': query_string});
@@ -241,6 +241,7 @@ jQuery( document ).ready(function() {
         render: function(){
             if(krimi_app.books_with_similar_location_rdf.length != 0)
             {
+                
                 this.template = _.template(jQuery("#krimi-similar-by_lokationer_tpl").html());
                 this.$el.html(this.template({"similar": krimi_app.books_with_similar_location_rdf}));
                 jQuery('#paginator').easyPaginate({
@@ -263,7 +264,7 @@ jQuery( document ).ready(function() {
         },
         display_item: function(e){
             var target = jQuery(e.currentTarget);
-            var query_string = target.find('img').attr('title');
+            var query_string = target.find('#faust').attr('value');
             var found = krimi_app.books_with_similar_location_rdf.findWhere({'identifier': target.attr('id')});
             var tmpl = _.template(jQuery('#krimi-display-similar-book').html());
             var html = tmpl({'entity': found,'query': query_string});

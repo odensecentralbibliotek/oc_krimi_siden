@@ -57,7 +57,21 @@
     <div id="paginator">
     <% _.each(similar.models, function(similarItem) { %>
     <div class="krimi-cover-image">
-    <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
+    <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" />
+   <% var fausts = ''; _.each(similarItem.get('productID'), function(faustNumber,i) {
+        var split = faustNumber.split(':');
+        if(i == 0)
+        {
+            fausts += split[1];
+        }
+        else
+        {
+            fausts += ' OR ' +split[1];
+        }
+                 %>
+     <% }); %>
+    <input id="faust" type="hidden" value="<%= fausts %>" />
+    </a>
     </div>
     <% }); %>
      </div>
@@ -95,7 +109,21 @@
     <div id="paginator">
     <% _.each(similar.models, function(similarItem) { %>
     <div class="krimi-cover-image">
-    <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
+    <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" />
+        <% var fausts = ''; _.each(similarItem.get('productID'), function(faustNumber,i) {
+        var split = faustNumber.split(':');
+        if(i == 0)
+        {
+            fausts += split[1];
+        }
+        else
+        {
+            fausts += ' OR ' +split[1];
+        }
+                 %>
+     <% }); %>
+    <input id="faust" type="hidden" value="<%= fausts %>" />
+    </a>
     </div>
     <% }); %>
     </div>
@@ -110,7 +138,22 @@
     <div id="paginator">
     <% _.each(similar.models, function(similarItem) { %>
     <div class="krimi-cover-image">
-    <a id="<%= similarItem.get('identifier') %>" class="main-char-similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
+    <a id="<%= similarItem.get('identifier') %>" class="main-char-similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" />
+       <% var fausts = ''; _.each(similarItem.get('productID'), function(faustNumber,i) { 
+        var split = faustNumber.split(':');
+        if(i == 0)
+        {
+            fausts += split[1];
+        }
+        else
+        {
+            fausts += ' OR ' +split[1];
+        }
+                 %>
+     <% }); %>
+    <input id="faust" type="hidden" value="<%= fausts %>" />
+    </a>
+    
     </div>
     <% }); %>
     </div>
@@ -125,7 +168,23 @@
     <div id="paginator">
     <% _.each(similar.models, function(similarItem) { %>
     <div class="krimi-cover-image">
-    <a id="<%= similarItem.get('identifier') %>" class="lokation-similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
+    <a id="<%= similarItem.get('identifier') %>" class="lokation-similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" />
+    <% var fausts = ''; _.each(similarItem.get('productID'), function(faustNumber,i) { 
+                 
+                 
+        var split = faustNumber.split(':');
+        if(i == 0)
+        {
+            fausts += split[1];
+        }
+        else
+        {
+            fausts += ' OR ' +split[1];
+        }
+                 %>
+     <% }); %>
+    <input id="faust" type="hidden" value="<%= fausts %>" />
+    </a>
     </div>
     <% }); %>
     </div>
@@ -141,7 +200,23 @@
     <div id="paginator">
     <% _.each(similar.models, function(similarItem) { %>
     <div class="krimi-cover-image">
-    <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" /></a>
+    <a id="<%= similarItem.get('identifier') %>" class="similar-item krimi-follow-similar"><img src="<%= similarItem.get('image') %>" title="<%= similarItem.get('name') %>" />
+        <% var fausts = ''; _.each(similarItem.get('productID'), function(faustNumber,i) { 
+                 
+                 
+        var split = faustNumber.split(':');
+        if(i == 0)
+        {
+            fausts += split[1];
+        }
+        else
+        {
+            fausts += ' OR ' +split[1];
+        }
+                 %>
+     <% }); %>
+    <input id="faust" type="hidden" value="<%= fausts %>" />
+    </a>
     </div>
     <% }); %>
     </div>
