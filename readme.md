@@ -2,8 +2,9 @@
 
 Kendte fejl:
 
-1. Ikke alle krimier er tilgængelige i vores databrønd
+1. Ikke alle krimier er tilgængelige i vores databrønd.
 2. Mange krimiers cover billeder er ikke længere tilgængelige via krimisiden.dk
 3. Ikke alle krimier findes i krimisidens database og vi kan derfor ikke slå lokation og hovede karakter op.
-4. Ikke alle krimi poster i brønden har forfatter tilknytter og vi kan derfor ikke finde lignende forfattere.
-5. Mange forfattere er ikke kendt i krimisiden databsen
+4. Ikke alle krimi poster i brønden har forfatter tilknytter og vi kan derfor ikke finde lignende forfattere. ( kan løses delvist med at bruge rdf data , virker kun hvis bogen er kendt i krimisiden)
+5. Mange forfattere er ikke kendt i krimisiden databasen
+6. Nogle få bøger har ikke "faust:xxx" på sig.
