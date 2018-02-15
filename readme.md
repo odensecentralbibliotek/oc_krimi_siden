@@ -8,3 +8,4 @@ Kendte fejl:
 4. Ikke alle krimi poster i brønden har forfatter tilknyttet og vi kan derfor ikke finde lignende forfattere. ( kan løses delvist med at bruge rdf data , virker kun hvis bogen er kendt i krimisiden)
 5. Mange forfattere er ikke kendt i krimisiden databasen
 6. Nogle få bøger har ikke "faust:xxx" på sig.
+7. Nogle faust numre fra krimisiden rdf peger på andre brønd poster en den valgte krimi.
