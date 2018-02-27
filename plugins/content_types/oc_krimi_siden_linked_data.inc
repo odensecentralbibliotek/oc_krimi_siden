@@ -22,7 +22,7 @@ function oc_krimi_siden_linked_data_content_type_render($subtype, $conf, $panel_
   // Define the return block.
   $entity = ding_entity_load($panel_args[0]);
   $block = new stdClass();
-  if(in_array ('krimi',$entity->subjects))
+  if(in_array ('krimi',array_map('strtolower',$entity->subjects)))
   {
       //add entity information to bootstrap javascript.
       $data = array();
@@ -34,8 +34,16 @@ function oc_krimi_siden_linked_data_content_type_render($subtype, $conf, $panel_
        * load with interesting rdf data also.
        */
       $rdf = oc_krimi_siden_get_single_rdf_internal($entity->localId);
-      $data["location"] = isset($rdf->contentLocation) ? $rdf->contentLocation : null;
-      $data["mainchar"] = isset($rdf->character) ? $rdf->character : null;
+      if($rdf != null && isset($rdf->{"@type"}))
+      {
+        $data["location"] = isset($rdf->contentLocation) ? $rdf->contentLocation : null;
+        $data["mainchar"] = isset($rdf->character) ? $rdf->character : null;
+        if(!isset($data["author"]))
+        {
+            //we assyme array[0] is author full name.
+            $data["author"] = reset($rdf->author);
+        }
+      
       
       drupal_add_js(array(
         'oc_krimi_siden' => $data,
@@ -52,6 +60,11 @@ function oc_krimi_siden_linked_data_content_type_render($subtype, $conf, $panel_
       
       drupal_add_css(drupal_get_path('module', 'oc_krimi_siden') .'/css/oc_krimi_siden.css');
       $block->content = theme("krimi_linked_block");
+      }
+      else
+      {
+          $block->content = "";
+      }
   }
   
   return $block;

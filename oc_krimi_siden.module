@@ -74,6 +74,22 @@ function oc_krimi_siden_get_single_rdf_internal($faust)
     $data = file_get_contents($url);
     return json_decode($data);
 }
+function oc_krimi_siden_get_single_charecter_rdf_data_internal($id)
+{
+    /*$query = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?genre schema:productID "faust:%#%" .?genre ?o ?p}';
+    $query = str_replace('%#%', $faust, $query);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($query) . "&output=json";
+    $data = file_get_contents($url);
+    return json_decode($data);*/
+}
+function oc_krimi_siden_get_single_location_rdf_data_internal($id)
+{
+    /*$query = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?genre schema:productID "faust:%#%" .?genre ?o ?p}';
+    $query = str_replace('%#%', $faust, $query);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($query) . "&output=json";
+    $data = file_get_contents($url);
+    return json_decode($data);*/
+}
 /*
  * Api methods
  */
@@ -119,6 +135,9 @@ function oc_krimi_siden_get_books_by_author($author)
 }
 function oc_krimi_siden_get_author_genres($author)
 {
+    /*
+     * Find genre som forfatteren skriver indenfor , og gennem dette finde lignede bøger.
+     */
     $get_book_genres_sparql = 'PREFIX schema: <http://schema.org/> SELECT distinct ?identifier ?label ?genre_billede WHERE {  ?s schema:author "%#%" .  ?s schema:genre ?identifier .  ?identifier schema:name ?label .  BIND(CONCAT("", ?label, ".jpg") AS ?genre_billede) .}';
     $get_book_genres_sparql = str_replace('%#%', $author, $get_book_genres_sparql);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_book_genres_sparql) . "&output=json";
