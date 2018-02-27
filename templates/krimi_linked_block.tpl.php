@@ -233,7 +233,7 @@
 
 <!-- View similar authors in genre--->
 <script type="text/template" id="krimi-authors-in-genre">
-    <h2>Forfaterer som skriver i samme genre</h2>
+    <h2>Forfatterer som skriver i samme genre som valgt forfatter.</h2>
     <div class="oc-krimi-menu"> 
     <a id="krimi_goto_menu_btn"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
     </div>

@@ -9,3 +9,4 @@ Kendte fejl:
 5. Mange forfattere er ikke kendt i krimisiden databasen
 6. Nogle få bøger har ikke "faust:xxx" på sig.
 7. Nogle faust numre fra krimisiden rdf peger på andre brønd poster en den valgte krimi.
+8. Ikke muligt at få lokation eller hovedepersons navne direkte i datasættet. ( afvænter)
