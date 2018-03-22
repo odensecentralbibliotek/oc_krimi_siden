@@ -39,6 +39,18 @@ function oc_krimi_siden_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['krimi/get-locations/%'] = array(
+    'page callback' => 'oc_krimi_siden_get_locations',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  $items['krimi/get-characters/%'] = array(
+    'page callback' => 'oc_krimi_siden_get_characters',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 /**
@@ -96,8 +108,8 @@ function oc_krimi_siden_get_single_location_rdf_data_internal($id)
 
 function oc_krimi_siden_get_books_by_location($location)
 {
-    $location = "http://krimisiden.dk/content.php?" . $location;
-    $query = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?genre schema:contentLocation <%#%> .?genre ?o ?p}';
+    
+    $query = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?sted_url schema:name "%#%" . ?s schema:contentLocation ?sted_url . ?s schema:productID ?faust . ?s ?o ?p}';
     $query = str_replace('%#%', $location, $query);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($query) . "&output=json";
     $data = file_get_contents($url);
@@ -106,8 +118,8 @@ function oc_krimi_siden_get_books_by_location($location)
 }
 function oc_krimi_siden_get_books_by_main_char($main_char)
 {
-    $main_char = "http://krimisiden.dk/content.php?" . $main_char;
-    $get_books_by_main_char_sparql = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?mainchar schema:character <%#%> . ?mainchar ?o ?p }';
+    
+    $get_books_by_main_char_sparql = 'PREFIX schema: <http://schema.org/> CONSTRUCT WHERE { ?mainchar schema:mainCharacter "%#%" . ?mainchar ?o ?p }';
     $get_books_by_main_char_sparql = str_replace('%#%', $main_char, $get_books_by_main_char_sparql);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_books_by_main_char_sparql) . "&output=json";
     $data = file_get_contents($url);
@@ -151,6 +163,24 @@ function oc_krimi_siden_get_similar_authors_by_genre($faust)
     $get_authors_in_book_genre_sparql = 'PREFIX schema: <http://schema.org/> select distinct ?author {  ?s schema:productID "faust:%#%" .  ?s schema:genre ?genre .  ?books schema:author ?author .  filter(isLiteral(?author)) }group by ?author order by rand() LIMIT 50';
     $get_authors_in_book_genre_sparql = str_replace('%#%', $faust, $get_authors_in_book_genre_sparql);
     $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_authors_in_book_genre_sparql) . "&output=json";
+    $data = file_get_contents($url);
+    echo $data;
+    drupal_exit();
+}
+function oc_krimi_siden_get_locations($faust)
+{
+    $get_locations_sparql = 'PREFIX schema: <http://schema.org/> SELECT ?sted_city ?sted_land WHERE { ?s schema:productID "faust:%#%" . ?s schema:contentLocation ?sted_url . ?sted_url schema:containedInPlace ?sted_land . ?sted_url schema:name ?sted_city . FILTER(isLiteral(?sted_land))}';
+    $get_locations_sparql = str_replace('%#%', $faust, $get_locations_sparql);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_locations_sparql) . "&output=json";
+    $data = file_get_contents($url);
+    echo $data;
+    drupal_exit();
+}
+function oc_krimi_siden_get_characters($faust)
+{
+    $get_characters_sparql = 'PREFIX schema: <http://schema.org/> SELECT ?label WHERE {?s schema:productID "faust:%#%" . ?s schema:mainCharacter ?label . }';
+    $get_characters_sparql = str_replace('%#%', $faust, $get_characters_sparql);
+    $url = "http://lod.fynbib.dk:3030/krimisiden/sparql?query=".rawurlencode($get_characters_sparql) . "&output=json";
     $data = file_get_contents($url);
     echo $data;
     drupal_exit();
